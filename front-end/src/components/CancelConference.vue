@@ -2,9 +2,8 @@
 
     <div>
         <Home/>
-        <h1><b>Please choose conference to cancel</b></h1>
         <div class="container">
-            <h3>All active Conferences:</h3>
+            <h1>Please choose conference to cancel from active conferences:</h1>
             <div class="container">
                 <table class="table">
                     <thead>
@@ -14,6 +13,7 @@
                         <th>Date & time</th>
                         <th>Maximum seats number</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody v-for="conference in conferenceList">
@@ -23,6 +23,11 @@
                         <td>{{conference.date}}</td>
                         <td>{{conference.max_seats}}</td>
                         <td>{{conference.status}}</td>
+                        <td>
+                            <button class="btn btn-warning" v-on:click="deleteConference(conference.id)">
+                                Delete
+                            </button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -49,7 +54,6 @@
         },
         methods: {
             getConferences() {
-
                 apiRequests.getRequestToApi('/conferences')
                     .then((result => {
                             this.conferenceList = result.data;
@@ -65,7 +69,10 @@
                     console.log(error.config);
                 });
             },
-
+            deleteConference(id) {
+                apiRequests.deleteRequestToApi(id);
+                this.getConferences();
+            }
         },
         mounted() {
             this.getConferences();
