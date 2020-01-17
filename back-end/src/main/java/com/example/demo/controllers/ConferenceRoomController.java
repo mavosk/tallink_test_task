@@ -17,14 +17,6 @@ public class ConferenceRoomController {
 
     @Autowired
     ConferenceRoomRepository repository;
-    @RequestMapping("/save")
-    public String process(){
-        repository.save(new ConferenceRoom(	"M/S Baltic Queen conference"	,"M/S	Baltic	Queen", 124));
-        repository.save(new ConferenceRoom("M/S  Silja Line", "M/S	 Silja Line", 100));
-        repository.save(new ConferenceRoom("M/S Romantika room", "M/S	 Romantika room", 50));
-        repository.save(new ConferenceRoom("M/S Megastar", "M/S	 Megastar", 80));
-        return "Done";
-    }
 
     @RequestMapping("/allRooms")
     public List findAll(){
