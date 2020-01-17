@@ -11,18 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = { "http://localhost:8081", "http://localhost:8081/registerConference" })
+@CrossOrigin(origins = { "http://localhost:8081", "http://localhost:8081/registerConference",
+        "http://localhost:8081/cancelConference", "http://localhost:8081/viewConference" })
 @RestController
 public class ConferenceController {
 
     @Autowired
     ConferenceRepository repository;
 
-    @RequestMapping("/saveConf")
-    public String save(){
-        repository.save(new Conference("Daily meeting", "M/S	Baltic	Queen",  "2015-03-31", 12,"ACTIVE"));
-        return "Done";
-    }
+
 
     @PostMapping("/addConference")
     public void addConference(@RequestBody JSONObject request) {
@@ -46,7 +43,7 @@ public class ConferenceController {
         return result;
     }
 
-    @DeleteMapping("/conferences/{id}")
+    @DeleteMapping("/deleteConference/{id}")
     public ResponseEntity<Void> deleteConferenceById(@PathVariable long id) {
 
         repository.deleteById(id);
@@ -55,7 +52,7 @@ public class ConferenceController {
     }
 
 
-    @GetMapping("/conferences/{id}")
+    @GetMapping("/getConferenceById/{id}")
     public Optional<Conference> findById(@PathVariable long id) {
         return repository.findById(id);
     }
