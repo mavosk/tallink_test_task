@@ -115,7 +115,7 @@
                     })
             },
             getParticipation() {
-                apiRequests.getRequestToApi('/participations')
+                apiRequests.getByIdRequestToApi('/participations', this.$route.params.id)
                     .then(result => {
                         this.participationList = result.data;
                     })
