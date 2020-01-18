@@ -4,6 +4,9 @@
         <Home/>
         <div class="container">
             <h1>Please choose conference to cancel from active conferences:</h1>
+            <div v-if="message" class="alert alert-success">
+                {{message}}
+            </div>
             <div class="container">
                 <table class="table">
                     <thead>
@@ -13,6 +16,7 @@
                         <th>Date & time</th>
                         <th>Maximum seats number</th>
                         <th>Status</th>
+                        <th>Detail view</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -23,6 +27,12 @@
                         <td>{{conference.date}}</td>
                         <td>{{conference.max_seats}}</td>
                         <td>{{conference.status}}</td>
+                        <td>
+                            <button class="btn btn-success" v-on:click="goToDetail(conference.id)"
+                                    :data="conference" :key="conference.id">
+                               Details
+                            </button>
+                        </td>
                         <td>
                             <button class="btn btn-warning" v-on:click="deleteConference(conference.id)">
                                 Delete
@@ -49,7 +59,8 @@
 
         data() {
             return {
-                conferenceList: []
+                conferenceList: [],
+                message : null
             };
         },
         methods: {
@@ -69,8 +80,23 @@
                     console.log(error.config);
                 });
             },
+
             deleteConference(id) {
-                apiRequests.deleteRequestToApi(id);
+                apiRequests.deleteRequestToApi('/deleteConference', id)
+                    .then(() =>
+                        {
+                            this.message = `Delete of conference ${id} Successful`;
+                            this.getConferences();
+                        }
+                    );
+
+            },
+            goToDetail(proId) {
+                this.$router.push({name: 'viewConference', params: {id: proId}})
+            }
+        },
+        watch: {
+            $route() {
                 this.getConferences();
             }
         },

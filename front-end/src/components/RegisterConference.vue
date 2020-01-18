@@ -6,8 +6,11 @@
 
 
         <div class="registerConference">
-
+            <div v-if="message" class="alert alert-danger">
+                {{message}}
+            </div>
             <form @submit="sendData">
+
                 <div class="form-group" id="conferenceName">
                     <label for="name">Conference name</label>
                     <input type="text" class="form-control" v-model="name" name="name" id="name"
@@ -33,6 +36,7 @@
 
 
                 <button type="submit" class="btn btn-primary">Register</button>
+
             </form>
 
         </div>
@@ -52,32 +56,43 @@
         components: {
             Home,
             datetime: Datetime,
+
         },
         data() {
             return {
                 name: "",
                 location: "",
                 max_seats: 0,
-                date: ''
+                date: '',
+                message: null
 
             };
         },
         methods: {
             sendData() {
-
-                  apiRequests.postRequestToApi('/addConference', {
-                    name: this.name,
-                    location: this.location,
-                    max_seats: this.max_seats,
-                    date: this.date
-                })
-                    .then(() => {
-                        console.log("success");
+                this.errors = [];
+                if (!this.name && this.name.length < 5) {
+                    this.message = "Please enter full name";
+                } else if (!this.location) {
+                    this.message = "Please choose conference location";
+                } else if (!this.date) {
+                    this.message = "Please choose conference date & time";
+                } else {
+                    apiRequests.postRequestToApi('/addConference', {
+                        name: this.name,
+                        location: this.location,
+                        max_seats: this.max_seats,
+                        date: this.date
                     })
-                    .catch(() => {
-                        console.log("error");
-                    });
+                        .then(() => {
+                            console.log("success");
+                        })
+                        .catch(() => {
+                            console.log("error");
+                        });
+                }
             }
+
         }
 
 
