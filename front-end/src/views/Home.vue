@@ -8,23 +8,20 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-item nav-link" href="/registerConference">Register conference</a>
-          <a class="nav-item nav-link" href="/cancelConference">Cancel conference</a>
-          <a class="nav-item nav-link" href="#">Edit conference</a>
+          <a class="nav-item nav-link" href="/manageConference">Manage conference</a>
         </div>
       </div>
     </nav>
-    <MainPage/>
   </div>
 
 </template>
 
 <script>
-import MainPage from '@/components/MainPage.vue'
 
 export default {
   name: 'Home',
   components: {
-    MainPage
+
   }
 }
 </script>

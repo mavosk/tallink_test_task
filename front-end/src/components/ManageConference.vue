@@ -53,7 +53,7 @@
     import apiRequests from './../javascript/apiRequests.js';
 
     export default {
-        name: 'CancelConference',
+        name: 'ManageConference',
         components: {Home},
 
         data() {

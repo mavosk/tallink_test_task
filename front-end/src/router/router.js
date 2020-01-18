@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import RegisterConference from '../components/RegisterConference.vue'
-import CancelConference from "../components/CancelConference";
+import ManageConference from "../components/ManageConference";
+import ViewConference from "../components/ViewConference";
 
 Vue.use(VueRouter)
 
@@ -18,10 +19,16 @@ const routes = [
     component: RegisterConference
   },
   {
-    path: '/cancelConference',
-    name: 'cancelConference',
-    component: CancelConference
-  }
+    path: '/manageConference',
+    name: 'manageConference',
+    component: ManageConference
+  },
+    ,
+    {
+        path: '/viewConference/:id',
+        name: 'viewConference',
+        component: ViewConference
+    }
 ]
 
 const router = new VueRouter({
