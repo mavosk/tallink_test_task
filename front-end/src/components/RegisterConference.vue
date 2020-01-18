@@ -6,7 +6,10 @@
 
 
         <div class="registerConference">
-            <div v-if="message" class="alert alert-danger">
+            <div v-if="error" class="alert alert-danger">
+                {{error}}
+            </div>
+            <div v-if="message" class="alert alert-success">
                 {{message}}
             </div>
             <form @submit="sendData">
@@ -30,8 +33,8 @@
                            placeholder="Enter number of participant">
                 </div>
                 <div class="form-group" id="datetime">
-                    <label>Date</label>
-                    <datetime type="datetime" v-model="date" name="date" id="date"></datetime>
+                    <label for="date">Date</label><br>
+                    <input type="datetime-local" v-model="date" name="date" id="date" required/>
                 </div>
 
 
@@ -46,16 +49,13 @@
 
 </template>
 <script>
-    import axios from 'axios';
     import Home from "../views/Home";
-    import {Datetime} from 'vue-datetime';
     import apiRequests from './../javascript/apiRequests.js';
 
     export default {
         name: 'RegisterConference',
         components: {
-            Home,
-            datetime: Datetime,
+            Home
 
         },
         data() {
@@ -64,19 +64,20 @@
                 location: "",
                 max_seats: 0,
                 date: '',
-                message: null
+                message: null,
+                error : null
 
             };
         },
         methods: {
             sendData() {
-                this.errors = [];
+
                 if (!this.name && this.name.length < 5) {
-                    this.message = "Please enter full name";
+                    this.error = "Please enter full name";
                 } else if (!this.location) {
-                    this.message = "Please choose conference location";
+                    this.error = "Please choose conference location";
                 } else if (!this.date) {
-                    this.message = "Please choose conference date & time";
+                    this.error = "Please choose conference date & time";
                 } else {
                     apiRequests.postRequestToApi('/addConference', {
                         name: this.name,
@@ -85,6 +86,7 @@
                         date: this.date
                     })
                         .then(() => {
+                            this.message = "Conference added successfully.";
                             console.log("success");
                         })
                         .catch(() => {
@@ -92,6 +94,9 @@
                         });
                 }
             }
+
+        },
+        mounted() {
 
         }
 

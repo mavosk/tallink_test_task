@@ -32,11 +32,11 @@
                 <div class="form-group p-lg-1" id="participantName">
                     <label for="pname">Participant name</label>
                     <input type="text" class="form-control" v-model="pname" name="name" id="pname"
-                           placeholder="Enter full name">
+                           placeholder="Enter full name" required>
                 </div>
                 <div class="form-group" id="birth_date">
                     <label>Participant's birth date</label>
-                    <input type="date" v-model="birth_date" name="name" id="b_date">
+                    <input type="date" v-model="birth_date" name="name" id="b_date" required>
                 </div>
                 <button class="btn btn-success">Add</button>
             </form>
