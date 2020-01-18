@@ -45,6 +45,17 @@ public class ParticipationController {
         return result;
     }
 
+    @GetMapping("/participation/{conference_id}")
+    public List getConferenceParticipation(@PathVariable long conference_id) {
+        List<Participation> result = new ArrayList<>();
+        for (Participation participant : repository.findAll()) {
+            if (participant.conference_id == conference_id) {
+                result.add(participant);
+            }
+        }
+        return result;
+    }
+
     @DeleteMapping("/deleteParticipation/{id}")
     public ResponseEntity<Void> deleteParticipationById(@PathVariable long id) {
 
@@ -54,7 +65,18 @@ public class ParticipationController {
     }
 
 
+    @DeleteMapping("/deleteAllParticipation/{conference_id}")
+    public ResponseEntity<Void> deleteAllParticipationById(@PathVariable long conference_id) {
 
+
+        for (Participation participant : repository.findAll()) {
+            if (participant.conference_id == conference_id) {
+                repository.deleteById(participant.id);
+            }
+        }
+
+        return ResponseEntity.noContent().build();
+    }
 
 
 }
