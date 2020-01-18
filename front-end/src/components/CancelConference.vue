@@ -49,7 +49,6 @@
 </template>
 
 <script>
-    import axios from 'axios';
     import Home from "../views/Home";
     import apiRequests from './../javascript/apiRequests.js';
 
@@ -69,15 +68,8 @@
                     .then((result => {
                             this.conferenceList = result.data;
                         })
-                    ).catch(function (error) {
-                    if (error.response) {
-                        console.log(error.response.headers);
-                    } else if (error.request) {
-                        console.log(error.request);
-                    } else {
-                        console.log(error.message);
-                    }
-                    console.log(error.config);
+                    ).catch(() => {
+                    this.message = "No conferences found";
                 });
             },
 
@@ -89,6 +81,12 @@
                             this.getConferences();
                         }
                     );
+                apiRequests.deleteRequestToApi('/deleteAllParticipation', id)
+                    .then(() => {
+                        console.log("success");
+                    }).catch(() => {
+                        console.log("error");
+                });
 
             },
             goToDetail(proId) {
