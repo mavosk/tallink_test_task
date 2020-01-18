@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = { "http://localhost:8081", "http://localhost:8081/registerConference",
-        "http://localhost:8081/cancelConference", "http://localhost:8081/viewConference" })
+        "http://localhost:8081/manageConference", "http://localhost:8081/viewConference" })
 @RestController
 public class ConferenceController {
 
