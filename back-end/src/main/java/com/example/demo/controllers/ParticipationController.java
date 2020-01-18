@@ -4,6 +4,7 @@ import com.example.demo.repositories.ParticipationRepository;
 import com.example.demo.tables.Participation;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -12,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = { "http://localhost:8081", "http://localhost:8081/viewConference" })
+@CrossOrigin(origins = {"http://localhost:8081", "http://localhost:8081/viewConference"})
 @RestController
 public class ParticipationController {
 
@@ -24,16 +25,10 @@ public class ParticipationController {
 
 
         String request_date = request.getAsString("birth_date");
-        SimpleDateFormat input= new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat output= new SimpleDateFormat("yyyy/MM/dd");
-        Date date  = input.parse(request_date);
-        String formattedTime = output.format(date);
+        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = input.parse(request_date);
 
-        System.out.println(formattedTime);
-
-
-
-                Participation participation = new Participation(
+        Participation participation = new Participation(
                 request.getAsString("name"),
                 date,
                 Integer.parseInt(request.get("conference_id").toString()
@@ -44,11 +39,22 @@ public class ParticipationController {
     @GetMapping("/participations")
     public List getAll() {
         List<Participation> result = new ArrayList<>();
-        for(Participation participant : repository.findAll()){
+        for (Participation participant : repository.findAll()) {
             result.add(participant);
         }
         return result;
     }
+
+    @DeleteMapping("/deleteParticipation/{id}")
+    public ResponseEntity<Void> deleteParticipationById(@PathVariable long id) {
+
+        repository.deleteById(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+
+
 
 
 }

@@ -27,12 +27,9 @@ public class ConferenceController {
         Conference conference = new Conference(request.getAsString("name"), request.getAsString("location"),
                 request.getAsString("date"), Integer.parseInt(request.get("max_seats").toString()),
                 "ACTIVE");
-        System.out.println(conference.toString());
         repository.save(conference);
 
     }
-
-
 
     @GetMapping("/conferences")
     public List getAll() {
