@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,10 +25,16 @@ public class ConferenceController {
 
 
     @PostMapping("/addConference")
-    public void addConference(@RequestBody JSONObject request) {
+    public void addConference(@RequestBody JSONObject request) throws ParseException {
+        String request_date = request.getAsString("date");
+        SimpleDateFormat output = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        Date date = sdf.parse(request_date);
+        request_date = output.format(date);
+
         System.out.println(request);
         Conference conference = new Conference(request.getAsString("name"), request.getAsString("location"),
-                request.getAsString("date"), Integer.parseInt(request.get("max_seats").toString()),
+                request_date, Integer.parseInt(request.get("max_seats").toString()),
                 "ACTIVE");
         repository.save(conference);
 
