@@ -6,6 +6,7 @@ import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,6 +67,7 @@ public class ParticipationController {
         }
         return count;
     }
+
     @DeleteMapping("/deleteParticipation/{id}")
     public ResponseEntity<Void> deleteParticipationById(@PathVariable long id) {
 
