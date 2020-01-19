@@ -8,13 +8,9 @@ import ViewConference from "../components/ViewConference";
 Vue.use(VueRouter)
 
 const routes = [
+
   {
     path: '/',
-    name: 'home',
-    component: Home
-  },
-  {
-    path: '/registerConference',
     name: 'registerConference',
     component: RegisterConference
   },

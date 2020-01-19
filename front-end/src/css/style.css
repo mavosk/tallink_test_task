@@ -3,9 +3,14 @@
         width: 50%;
 
 }
-form {
+form, input {
+    width: 50%;
+    padding-left: 5%;
+}
+datetime {
     width: 50%;
 }
+
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
