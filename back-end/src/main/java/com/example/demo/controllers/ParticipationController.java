@@ -6,11 +6,10 @@ import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:8081", "http://localhost:8081/viewConference"})
@@ -22,10 +21,16 @@ public class ParticipationController {
 
     @PostMapping("/addParticipation")
     public void addParticipation(@RequestBody JSONObject request) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        String request_date = request.getAsString("birth_date");
+        Date date = sdf.parse(request_date);
+        sdf.applyPattern("dd.MM.yyyy");
+        request_date = sdf.format(date);
 
         Participation participation = new Participation(
                 request.getAsString("name"),
-                request.getAsString("birth_date"),
+                request_date,
                 Integer.parseInt(request.get("conference_id").toString()
                 ));
         repository.save(participation);

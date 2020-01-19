@@ -29,7 +29,7 @@ public class ConferenceRoomController {
         return result;
     }
 
-    @RequestMapping("/findbylocation")
+    @RequestMapping("/findByLocation")
     public String fetchDataByLastName(@RequestParam("location") String location){
         StringBuilder result = new StringBuilder();
 
