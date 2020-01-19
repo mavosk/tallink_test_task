@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <Home/>
+        <UpperNavBar/>
 
         <div id="conferenceInformation" class="container">
             <h2>{{conference.name}} detail information</h2>
@@ -81,11 +81,13 @@
     import Home from "../views/Home";
     import apiRequests from './../javascript/apiRequests.js';
     import {Datetime} from 'vue-datetime';
+    import UpperNavBar from "../layouts/UpperNavBar";
 
 
     export default {
         name: 'ViewConference',
         components: {
+            UpperNavBar,
             datetime: Datetime,
             Home
         },
@@ -138,7 +140,7 @@
                 apiRequests.getByIdRequestToApi('/countParticipation', this.$route.params.id)
                     .then(result => {
                         this.participant_num = result.data;
-                        if (this.participant_num == this.max_seats) {
+                        if (this.participant_num >= this.max_seats) {
                             this.error = "This conference is full.";
                         }
                         else {

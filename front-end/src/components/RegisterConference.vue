@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <Home/>
+        <UpperNavBar/>
         <h1><b>Register new conference</b></h1>
 
 
@@ -51,10 +51,12 @@
 <script>
     import Home from "../views/Home";
     import apiRequests from './../javascript/apiRequests.js';
+    import UpperNavBar from "../layouts/UpperNavBar";
 
     export default {
         name: 'RegisterConference',
         components: {
+            UpperNavBar,
             Home
 
         },
