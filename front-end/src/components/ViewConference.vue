@@ -140,12 +140,6 @@
                 apiRequests.getByIdRequestToApi('/countParticipation', this.$route.params.id)
                     .then(result => {
                         this.participant_num = result.data;
-                        if (this.participant_num >= this.max_seats) {
-                            this.error = "This conference is full.";
-                        }
-                        else {
-                            this.error = null;
-                        }
                     });
             },
             deleteParticipation(id){
