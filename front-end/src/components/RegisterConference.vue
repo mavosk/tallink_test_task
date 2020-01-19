@@ -65,7 +65,7 @@
                 max_seats: 0,
                 date: '',
                 message: null,
-                error : null
+                error: null
 
             };
         },
@@ -87,20 +87,14 @@
                     })
                         .then(() => {
                             this.message = "Conference added successfully.";
-                            console.log("success");
                         })
                         .catch(() => {
-                            console.log("error");
+                            this.error = "Something went wrong, please try again.";
                         });
                 }
             }
 
-        },
-        mounted() {
-
         }
-
-
     }
 </script>
 
