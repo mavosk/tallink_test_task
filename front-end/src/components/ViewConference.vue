@@ -9,7 +9,8 @@
                 <tr>
                     <th>Location</th>
                     <th>Date & time</th>
-                    <th>Maximum seats number</th>
+                    <th>Maximum participant number</th>
+                    <th>Registered participant number</th>
                     <th>Status</th>
                 </tr>
                 </thead>
@@ -18,6 +19,7 @@
                     <th>{{conference.location}}</th>
                     <th>{{conference.date}}</th>
                     <th>{{conference.max_seats}}</th>
+                    <th>{{participant_num}}</th>
                     <th>{{conference.status}}</th>
                 </tr>
                 </tbody>
@@ -26,8 +28,11 @@
             <div v-if="message" class="alert alert-success">
                 {{message}}
             </div>
+            <div v-if="error" class="alert alert-info">
+                {{error}}
+            </div>
             <h2>Register new paticipant</h2>
-            <form class="form-inline" @submit="sendData">
+            <form class="form-inline" @submit="sendData" id="registerForm"  >
 
                 <div class="form-group p-lg-1" id="participantName">
                     <label for="pname">Participant name</label>
@@ -38,7 +43,7 @@
                     <label>Participant's birth date</label>
                     <input type="date" v-model="birth_date" name="name" id="b_date" required>
                 </div>
-                <button class="btn btn-success">Add</button>
+                <button class="btn btn-success" id="addButton" :disabled="participant_num >= max_seats">Add</button>
             </form>
 
 
@@ -90,7 +95,10 @@
                 pname: '',
                 conference_id: '',
                 message: null,
-                participationList: []
+                error : null,
+                participationList: [],
+                participant_num : 0,
+                max_seats : 0,
             }
         },
         methods: {
@@ -98,7 +106,10 @@
                 apiRequests.getByIdRequestToApi('getConferenceById', this.$route.params.id)
                     .then(result => {
                         this.conference = result.data;
+                        this.max_seats = result.data.max_seats;
+
                     });
+
             },
             sendData() {
                 apiRequests.postRequestToApi('/addParticipation', {
@@ -120,7 +131,17 @@
                         this.participationList = result.data;
                     })
                     .catch(() =>
-                        this.participationList = [])
+                        this.participationList = []);
+                apiRequests.getByIdRequestToApi('/countParticipation', this.$route.params.id)
+                    .then(result => {
+                        this.participant_num = result.data;
+                        if (this.participant_num == this.max_seats) {
+                            this.error = "This conference is full.";
+                        }
+                        else {
+                            this.error = null;
+                        }
+                    });
             },
             deleteParticipation(id){
                 apiRequests.deleteRequestToApi('/deleteParticipation', id)
@@ -136,6 +157,7 @@
             this.loadConferenceData();
             this.getParticipation();
 
+
         }
 
     }
@@ -144,4 +166,5 @@
     #registerParticipant {
         padding: 2%;
     }
+
 </style>
