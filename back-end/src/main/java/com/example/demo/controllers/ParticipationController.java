@@ -39,11 +39,7 @@ public class ParticipationController {
 
     @GetMapping("/participation")
     public List getAll() {
-        List<Participation> result = new ArrayList<>();
-        for (Participation participant : repository.findAll()) {
-            result.add(participant);
-        }
-        return result;
+        return repository.findAll();
     }
 
     @GetMapping("/participation/{conference_id}")

@@ -14,14 +14,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = { "http://localhost:8081", "http://localhost:8081/registerConference",
-        "http://localhost:8081/manageConference", "http://localhost:8081/viewConference" })
+@CrossOrigin(origins = {"http://localhost:8081",
+        "http://localhost:8081/manageConference", "http://localhost:8081/viewConference"})
 @RestController
 public class ConferenceController {
 
     @Autowired
     ConferenceRepository repository;
-
 
 
     @PostMapping("/addConference")
@@ -32,7 +31,6 @@ public class ConferenceController {
         Date date = sdf.parse(request_date);
         request_date = output.format(date);
 
-        System.out.println(request);
         Conference conference = new Conference(request.getAsString("name"), request.getAsString("location"),
                 request_date, Integer.parseInt(request.get("max_seats").toString()),
                 "ACTIVE");
@@ -42,11 +40,7 @@ public class ConferenceController {
 
     @GetMapping("/conferences")
     public List getAll() {
-        List<Conference> result = new ArrayList<>();
-        for(Conference room : repository.findAll()){
-            result.add(room);
-        }
-        return result;
+        return repository.findAll();
     }
 
     @DeleteMapping("/deleteConference/{id}")

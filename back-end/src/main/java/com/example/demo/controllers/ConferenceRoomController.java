@@ -20,13 +20,7 @@ public class ConferenceRoomController {
 
     @RequestMapping("/allRooms")
     public List findAll(){
-        List<ConferenceRoom> result = new ArrayList<>();
-
-        for(ConferenceRoom room : repository.findAll()){
-            result.add(room);
-        }
-
-        return result;
+        return repository.findAll();
     }
 
     @RequestMapping("/findByLocation")
