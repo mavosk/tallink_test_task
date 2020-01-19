@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS conference_room;
 DROP TABLE IF EXISTS conference;
 DROP TABLE IF EXISTS participation;
 
+
  CREATE TABLE conference_room (
   id INT AUTO_INCREMENT  PRIMARY KEY,
   name VARCHAR(250) NOT NULL,
@@ -13,7 +14,7 @@ CREATE TABLE participation (
   id INT AUTO_INCREMENT  PRIMARY KEY,
   full_name VARCHAR(150) NOT NULL,
   conference_id INT DEFAULT NULL,
-  birth_date DATE NOT NULL
+  birth_date VARCHAR(50) NOT NULL
 );
 
   CREATE TABLE conference (

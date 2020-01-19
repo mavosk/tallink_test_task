@@ -23,20 +23,15 @@ public class ParticipationController {
     @PostMapping("/addParticipation")
     public void addParticipation(@RequestBody JSONObject request) throws ParseException {
 
-
-        String request_date = request.getAsString("birth_date");
-        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = input.parse(request_date);
-
         Participation participation = new Participation(
                 request.getAsString("name"),
-                date,
+                request.getAsString("birth_date"),
                 Integer.parseInt(request.get("conference_id").toString()
                 ));
         repository.save(participation);
     }
 
-    @GetMapping("/participations")
+    @GetMapping("/participation")
     public List getAll() {
         List<Participation> result = new ArrayList<>();
         for (Participation participant : repository.findAll()) {
@@ -56,6 +51,16 @@ public class ParticipationController {
         return result;
     }
 
+    @GetMapping("/countParticipation/{conference_id}")
+    public Long getCount(@PathVariable long conference_id) {
+        long count = 0L;
+        for (Participation participant : repository.findAll()) {
+            if (participant.conference_id == conference_id) {
+                count++;
+            }
+        }
+        return count;
+    }
     @DeleteMapping("/deleteParticipation/{id}")
     public ResponseEntity<Void> deleteParticipationById(@PathVariable long id) {
 

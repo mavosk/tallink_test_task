@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @NoArgsConstructor
@@ -15,7 +15,7 @@ import java.util.Date;
 public class Conference {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public long id;
     @Column(name = "name")
@@ -23,21 +23,19 @@ public class Conference {
     @Column(name = "location")
     public String location;
     @Column(name="date")
-    public Date date_time;
+    public String date;
     @Column(name = "max_seats")
     public int max_seats;
     @Column(name = "status")
     public String status;
-    @Column(name="participant_num")
-    public int participant_num;
 
-    public Conference(String name, String location, Date time, int max_seats, String status, int participant_num) {
+
+    public Conference(String name, String location, String time, int max_seats, String status) {
         this.name = name;
         this.location = location;
-        this.date_time = time;
+        this.date = time;
         this.max_seats = max_seats;
         this.status = status;
-        this.participant_num = participant_num;
 
     }
 
@@ -46,10 +44,9 @@ public class Conference {
         return "Conference{" +
                 "name='" + name + '\'' +
                 ", location='" + location + '\'' +
-                ", date_time=" + date_time +
+                ", date=" + date +
                 ", max_seats=" + max_seats +
                 ", status='" + status + '\'' +
-                ", participant_num=" + participant_num +
                 '}';
     }
 }
