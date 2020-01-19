@@ -2,7 +2,7 @@
     <div class="home">
         <Home/>
 
-        <div id="registerParticipant" class="container">
+        <div id="conferenceInformation" class="container">
             <h2>{{conference.name}} detail information</h2>
             <table class="table">
                 <thead>
@@ -82,6 +82,7 @@
     import apiRequests from './../javascript/apiRequests.js';
     import {Datetime} from 'vue-datetime';
 
+
     export default {
         name: 'ViewConference',
         components: {
@@ -122,7 +123,7 @@
                         this.message = "Successfully added to conference";
                     })
                     .catch(() => {
-                        this.message = "Something went wrong, please try again.";
+                        this.error = "Something went wrong, please try again.";
                     })
             },
             getParticipation() {
@@ -132,6 +133,8 @@
                     })
                     .catch(() =>
                         this.participationList = []);
+            },
+            countParticipation() {
                 apiRequests.getByIdRequestToApi('/countParticipation', this.$route.params.id)
                     .then(result => {
                         this.participant_num = result.data;
@@ -146,8 +149,9 @@
             deleteParticipation(id){
                 apiRequests.deleteRequestToApi('/deleteParticipation', id)
                     .then(() => {
-                        this.message = `${id} is successfully deleted`;
+                        this.message = `Participant is successfully deleted`;
                         this.getParticipation();
+                        this.countParticipation();
                     })
             }
 
@@ -156,6 +160,7 @@
         mounted() {
             this.loadConferenceData();
             this.getParticipation();
+            this.countParticipation();
 
 
         }
@@ -163,7 +168,7 @@
     }
 </script>
 <style scoped>
-    #registerParticipant {
+    #conferenceInformation {
         padding: 2%;
     }
 
