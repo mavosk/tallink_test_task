@@ -6,7 +6,7 @@ Frontend: Vue js
 
 Database : H2 database
 
-## Requares:
+## Requires:
 
 JDK 1.8 or later
 
