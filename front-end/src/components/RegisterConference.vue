@@ -6,11 +6,17 @@
 
 
         <div class="registerConference">
-            <div v-if="error" class="alert alert-danger">
+            <div v-if="error" class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{error}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div v-if="message" class="alert alert-success">
+            <div v-if="message" class="alert alert-success alert-dismissible fade show" role="alert">
                 {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <form @submit="sendData">
 
@@ -21,10 +27,10 @@
                 </div>
                 <label>Choose conference room</label>
                 <select class="custom-select" v-model="location" id="location" name="location">
-                    <option value="1">M/S Baltic Queen</option>
-                    <option value="2">M/S Silja Line</option>
-                    <option value="3">M/S Romantika room</option>
-                    <option value="4">M/S Megastar</option>
+                    <option value="1" name="M/S Baltic Queen">M/S Baltic Queen</option>
+                    <option value="2" name="M/S Silja Line">M/S Silja Line</option>
+                    <option value="3" name="M/S Romantika room">M/S Romantika room</option>
+                    <option value="4" name="M/S Megastar">M/S Megastar</option>
                 </select>
                 <div class="form-group" id="seats_num">
                     <label for="max_seats">Maximum particitaon number: </label>
@@ -38,7 +44,7 @@
                 </div>
 
 
-                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="btn btn-primary" id="register">Register</button>
 
             </form>
 
