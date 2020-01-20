@@ -20,7 +20,7 @@
                         <th>Action</th>
                     </tr>
                     </thead>
-                    <tbody v-for="conference in conferenceList">
+                    <tbody v-for="conference in conference_list">
                     <tr>
                         <td>{{conference.name}}</td>
                         <td>{{conference.location}}</td>
@@ -58,7 +58,7 @@
 
         data() {
             return {
-                conferenceList: [],
+                conference_list: [],
                 message : null
             };
         },
@@ -66,7 +66,7 @@
             getConferences() {
                 apiRequests.getRequestToApi('/conferences')
                     .then((result => {
-                            this.conferenceList = result.data;
+                            this.conference_list = result.data;
                         })
                     ).catch(() => {
                     this.message = "No conferences found";

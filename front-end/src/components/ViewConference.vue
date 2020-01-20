@@ -58,7 +58,7 @@
                         <th>Action</th>
                     </tr>
                     </thead>
-                    <tbody v-for="participation in participationList">
+                    <tbody v-for="participation in participation_list">
                     <tr>
                         <td>{{participation.name}}</td>
                         <td>{{participation.conference_id}}</td>
@@ -99,7 +99,7 @@
                 conference_id: '',
                 message: null,
                 error : null,
-                participationList: [],
+                participation_list: [],
                 participant_num : 0,
                 max_seats : 0,
             }
@@ -131,10 +131,10 @@
             getParticipation() {
                 apiRequests.getByIdRequestToApi('/participation', this.$route.params.id)
                     .then(result => {
-                        this.participationList = result.data;
+                        this.participation_list = result.data;
                     })
                     .catch(() =>
-                        this.participationList = []);
+                        this.participation_list = []);
             },
             countParticipation() {
                 apiRequests.getByIdRequestToApi('/countParticipation', this.$route.params.id)
