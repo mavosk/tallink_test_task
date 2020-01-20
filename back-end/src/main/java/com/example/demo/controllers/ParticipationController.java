@@ -15,7 +15,7 @@ import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:8081", "http://localhost:8081/viewConference"})
 @RestController
-public class ParticipationController {
+public class ParticipationController{
 
     @Autowired
     ParticipationRepository repository;
@@ -44,24 +44,12 @@ public class ParticipationController {
 
     @GetMapping("/participation/{conference_id}")
     public List getConferenceParticipation(@PathVariable long conference_id) {
-        List<Participation> result = new ArrayList<>();
-        for (Participation participant : repository.findAll()) {
-            if (participant.conference_id == conference_id) {
-                result.add(participant);
-            }
-        }
-        return result;
+        return repository.getConferenceParticipation(conference_id);
     }
 
     @GetMapping("/countParticipation/{conference_id}")
     public Long getCount(@PathVariable long conference_id) {
-        long count = 0L;
-        for (Participation participant : repository.findAll()) {
-            if (participant.conference_id == conference_id) {
-                count++;
-            }
-        }
-        return count;
+        return repository.countParticipant(conference_id);
     }
 
     @DeleteMapping("/deleteParticipation/{id}")
