@@ -22,8 +22,6 @@ class ConferenceRoomControllerTest {
         URI uri = new URI(baseUrl);
 
         ResponseEntity<List> result = restTemplate.getForEntity(uri, List.class);
-
-        //Verify request succeed
         Assert.assertEquals(200, result.getStatusCodeValue());
         Assert.assertEquals(4, result.getBody().size());
     }
