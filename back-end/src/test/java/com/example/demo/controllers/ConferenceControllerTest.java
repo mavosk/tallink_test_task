@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
 import com.example.demo.repositories.ConferenceRepository;
-import com.example.demo.tables.Conference;
 import io.restassured.specification.RequestSpecification;
 import net.minidev.json.JSONObject;
 import org.junit.Assert;
